@@ -15,7 +15,6 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
   body {
     font-family: 'Inter', 'Segoe UI', sans-serif;
     line-height: 1.6;
@@ -170,6 +169,24 @@
   }
 }
 
+.card-click {
+  display: inline-block;
+  font-size: 1rem;
+  color: #00d4ff;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.card-click:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+  text-shadow: 0 0 5px rgba(0, 212, 255, 0.6);
+}
+
   /* Hero Section */
   .tf-hero {
     height: 100vh;
@@ -231,7 +248,7 @@
   /* Button Styles */
   .tf-btn {
     background: linear-gradient(135deg, #00d4ff, #0099cc);
-    color: #000;
+    color: #111;
     border: none;
     padding: 1.2rem 2.5rem;
     font-size: 1rem;
@@ -239,13 +256,14 @@
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(176, 201, 206, 0.3);
     text-transform: uppercase;
     letter-spacing: 1px;
     position: relative;
     overflow: hidden;
     text-decoration: none;
     display: inline-block;
+    opacity: 1 !important; 
   }
   
   .tf-btn::before {
@@ -535,7 +553,7 @@
       font-size: 1.3rem;
     }
     .tf-hamburger {
-      font-size: 1rem; /* Make hamburger even smaller */
+      font-size: 0.8rem;
     }
     .tf-section {
       padding: 3rem 3%;
@@ -764,6 +782,7 @@
                         <i class="tf-icon fas fa-trophy"></i>
                         <h3>International Participation</h3>
                         <p>Global reach and impact</p>
+                        <p class ="card-click">click here to know more</p>
                     </div>
                     <div class="tf-card-back">
                         <h3>Worldwide Network</h3>
@@ -777,6 +796,7 @@
                         <i class="tf-icon fas fa-lightbulb"></i>
                         <h3>Innovation Hub</h3>
                         <p>Cutting-edge technology showcase</p>
+                        <p class ="card-click">click here to know more</p>
                     </div>
                     <div class="tf-card-back">
                         <h3>Tech Showcase</h3>
@@ -790,6 +810,7 @@
                         <i class="tf-icon fas fa-users"></i>
                         <h3>Community Impact</h3>
                         <p>Inspiring future generations</p>
+                        <p  class ="card-click">click here to know more</p>
                     </div>
                     <div class="tf-card-back">
                         <h3>Social Initiative</h3>
