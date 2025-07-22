@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techfest IIT Bombay</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: #e0e0e0;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    background-attachment: fixed;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #0c0c0c;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #00d4ff, #0099cc);
+    border-radius: 3px;
+  }
+  
+  /* Navbar Styles */
+
+.tf-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(12, 12, 12, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+  z-index: 1000;
+  padding: 1.2rem 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tf-navbar.scrolled {
+  background: rgba(12, 12, 12, 0.98);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+  box-shadow: 0 4px 32px rgba(0, 212, 255, 0.1);
+}
+
+/* Logo */
+.tf-logo {
+  font-size: 2.2rem;
+  font-weight: 800;
+  text-decoration: none;
+  background: linear-gradient(135deg, #00d4ff, #0099cc, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+/* Navigation Links */
+.tf-nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2.5rem;
+}
+.tf-nav-links {
+  top: 20px;
+}
+
+.tf-nav-links a {
+  text-decoration: none;
+  color: #e0e0e0;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tf-nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background: linear-gradient(90deg, #00d4ff, #0099cc);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.tf-nav-links a:hover {
+  color: #00d4ff;
+}
+
+.tf-nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Hamburger Icon */
+.tf-hamburger {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #00d4ff;
+  transition: all 0.3s ease;
+}
+
+.tf-hamburger:hover {
+  transform: rotate(90deg);
+}
+
+/* Responsive - Hamburger menu behavior */
+@media (max-width: 768px) {
+  .tf-hamburger {
+    display: block;
+  }
+
+.tf-nav-links {
+  position: fixed;
+  top: 100%; 
+  left: -100%;
+  width: 100%;
+  height: calc(100vh - 80px); 
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 3rem;
+  transition: left 0.4s ease-in-out;
+  z-index: 999;
+}
+
+.tf-nav-links.active {
+  left: 0;
+  display: flex; 
+}
+
+
+  .tf-nav-links li {
+    margin: 1.5rem 0;
+  }
+
+  .tf-nav-links a {
+    font-size: 1.2rem;
+  }
+}
+
+  /* Hero Section */
+  .tf-hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(0, 153, 204, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .tf-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="g1"><stop offset="0%" style="stop-color:rgba(0,212,255,0.08)"/><stop offset="100%" style="stop-color:transparent"/></radialGradient></defs><circle cx="200" cy="300" r="150" fill="url(%23g1)"/><circle cx="800" cy="200" r="100" fill="url(%23g1)"/><circle cx="300" cy="800" r="120" fill="url(%23g1)"/><circle cx="600" cy="500" r="80" fill="url(%23g1)"/></svg>') center/cover;
+    animation: float 25s infinite ease-in-out;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+  }
+  
+  .tf-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding: 0 2rem;
+  }
+  
+  .tf-title {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #ffffff, #00d4ff, #0099cc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .tf-subtitle {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    margin-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Button Styles */
+  .tf-btn {
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: #000;
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .tf-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .tf-btn:hover::before {
+    left: 100%;
+  }
+  
+  .tf-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 45px rgba(0, 212, 255, 0.4);
+  }
+  
+  /* Section Styles */
+  .tf-section {
+    padding: 6rem 6%;
+    background: rgba(26, 26, 46, 0.7);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 212, 255, 0.1);
+    position: relative;
+  }
+  
+  .tf-section:nth-child(even) {
+    background: rgba(22, 33, 62, 0.7);
+  }
+  
+  .tf-heading {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+    margin-bottom: 4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00d4ff, #ffffff, #0099cc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -1px;
+    line-height: 1.1;
+  }
+  
+  .tf-section-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .tf-section-content p {
+    font-size: 1.3rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+  }
+  
+  /* Grid Styles */
+  .tf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    max-width: 1400px;
+    margin: 3rem auto 0;
+  }
+  
+  /* Card Styles */
+  .tf-card {
+    background: rgba(224, 224, 224, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(84, 85, 85, 0.15);
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .tf-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00d4ff, #0099cc, #ffffff);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+  
+  .tf-card:hover::before {
+    transform: scaleX(1);
+  }
+  
+  .tf-card:hover {
+    transform: translateY(-12px);
+    border-color: rgba(0, 212, 255, 0.3);
+    background: rgba(0, 212, 255, 0.08);
+    box-shadow: 0 25px 50px rgba(0, 212, 255, 0.15);
+  }
+  
+  .tf-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    color: #00d4ff;
+    filter: grayscale(100%);
+    transition: all 0.3s ease;
+  }
+  
+  .tf-card:hover .tf-icon {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+    color: #ffffff;
+  }
+  
+  .tf-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    color: #fff;
+    font-weight: 700;
+  }
+  
+  .tf-card p {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  
+  /* Portfolio Grid */
+  .tf-portfolio {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+  
+  .tf-item {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(0, 153, 204, 0.15));
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    color: white;
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+  }
+  
+  .tf-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 204, 0.25));
+    border-color: rgba(0, 212, 255, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+  }
+  
+  /* Form Styles */
+  .tf-form {
+    max-width: 600px;
+    margin: 3rem auto 0;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    padding: 3rem;
+    border-radius: 24px;
+  }
+  
+  .tf-form-group {
+    margin-bottom: 2rem;
+  }
+  
+  .tf-form input,
+  .tf-form textarea {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    backdrop-filter: blur(10px);
+  }
+  
+  .tf-form input::placeholder,
+  .tf-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .tf-form input:focus,
+  .tf-form textarea:focus {
+    outline: none;
+    border-color: #00d4ff;
+    background: rgba(0, 212, 255, 0.08);
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+  }
+  
+  .tf-form textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+  
+  /* Footer */
+  .tf-footer {
+    background: linear-gradient(135deg, #0c0c0c, #1a1a2e);
+    border-top: 1px solid rgba(0, 212, 255, 0.15);
+    color: white;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  
+  .tf-footer p {
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, #00d4ff, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .tf-hamburger {
+      display: block;
+    }
+    
+    .tf-nav-links {
+      position: fixed;
+      top: 80px;
+      left: -100%;
+      width: 100%;
+      height: calc(100vh - 80px);
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 3rem;
+      transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-right: 1px solid rgba(0, 212, 255, 0.1);
+    }
+    
+  .tf-nav-links.active {
+  left: 0;
+  display: flex; 
+}
+    
+    .tf-nav-links li {
+      margin: 1.5rem 0;
+    }
+    
+    .tf-nav-links a {
+      font-size: 1.2rem;
+    }
+    
+    .tf-section {
+      padding: 4rem 4%;
+    }
+    
+    .tf-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .tf-card {
+      padding: 2.5rem 1.5rem;
+    }
+    
+    .tf-form {
+      margin: 2rem 1rem 0;
+      padding: 2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .tf-navbar {
+      padding: 1rem 4%;
+    }
+    
+    .tf-section {
+      padding: 3rem 3%;
+    }
+    
+    .tf-card {
+      padding: 2rem 1.5rem;
+    }
+    
+    .tf-btn {
+      padding: 1rem 2rem;
+      font-size: 0.9rem;
+    }
+    
+    .tf-form {
+      padding: 1.5rem;
+    }
+  }
+  
+  /* Animation Classes */
+  .fade-in {
+    opacity: 10;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+  
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Loading states */
+  .loading {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.2), transparent);
+    animation: loading 2s infinite;
+  }
+  
+  @keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  /* Special Flip Card Styles */
+  .flip-card-grid {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+  
+  .flip-card {
+    width: 280px;
+    height: 360px;
+    perspective: 1000px;
+  }
+  
+  .tf-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+  }
+  
+  .flip-card:hover .tf-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .tf-card-front,
+  .tf-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,212,255,0.1);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .tf-card-front {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    color: white;
+  }
+  
+  .tf-card-back {
+    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+  .tf-card-front h3,
+  .tf-card-back h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .tf-card-front p,
+  .tf-card-back p {
+    font-size: 1rem;
+    line-height: 1.5;
+    opacity: 0.9;
+  }
+@media (max-width: 768px) {
+  .tf-nav-links {
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    width: 100%;
+    height: auto; 
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1.5rem 0;  
+    transition: left 0.4s ease-in-out;
+    z-index: 999;
+  }
+
+  .tf-nav-links.active {
+    left: 0;
+    display: flex;
+  }
+
+  .tf-nav-links li {
+    margin: 1rem 0;
+  }
+
+  .tf-nav-links a {
+    font-size: 1rem;
+  }
+}
+
+
+  .tf-nav-links.active {
+    left: 0;
+  }
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+  <nav class="tf-navbar" id="navbar">
+        <a href="#" class="tf-logo">Techfest</a>
+        <ul class="tf-nav-links" id="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#highlights">Highlights</a></li>
+            <li><a href="#join">Join</a></li>
+        </ul>
+        <div class="tf-hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="tf-hero" id="home">
+        <div class="tf-hero-content">
+            <h1 class="tf-title">India's Biggest Tech Festival</h1>
+            <p class="tf-subtitle">Techfest IIT Bombay — Where Innovation Meets Inspiration</p>
+            <a href="#about" class="tf-btn">Register Now</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="tf-section" id="about">
+        <div class="tf-section-content">
+            <h2 class="tf-heading">About Techfest</h2>
+            <p>Techfest is the annual science and technology festival of IIT Bombay and is Asia's largest in its genre. It brings together visionaries, technocrats, creators, and thinkers from across the globe to celebrate the spirit of innovation and technology.</p>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="tf-section" id="events">
+        <h2 class="tf-heading">Event Categories</h2>
+        <div class="tf-grid">
+            <div class="tf-card fade-in">
+                <i class="tf-icon fas fa-robot"></i>
+                <h3>Competitions</h3>
+                <p>Exciting challenges in robotics, coding, design, and more — compete with the brightest minds!</p>
+                <button class="tf-btn">Explore</button>
+            </div>
+            <div class="tf-card fade-in">
+                <i class="tf-icon fas fa-microphone"></i>
+                <h3>Guest Lectures</h3>
+                <p>Hear from Nobel Laureates, ISRO scientists, entrepreneurs, and tech leaders sharing insights.</p>
+                <button class="tf-btn">Explore</button>
+            </div>
+            <div class="tf-card fade-in">
+                <i class="tf-icon fas fa-rocket"></i>
+                <h3>Exhibitions</h3>
+                <p>Showcasing cutting-edge tech — from AI and drones to space exploration and eco-innovation.</p>
+                <button class="tf-btn">Explore</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Flip Cards Section -->
+    <section class="tf-section">
+        <h2 class="tf-heading">Festival Features</h2>
+        <div class="flip-card-grid">
+            <div class="flip-card">
+                <div class="tf-card-inner">
+                    <div class="tf-card-front">
+                        <i class="tf-icon fas fa-trophy"></i>
+                        <h3>International Participation</h3>
+                        <p>Global reach and impact</p>
+                    </div>
+                    <div class="tf-card-back">
+                        <h3>Worldwide Network</h3>
+                        <p>Participants from 100+ countries, collaboration with top universities, international sponsors, and global tech leaders as speakers.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="tf-card-inner">
+                    <div class="tf-card-front">
+                        <i class="tf-icon fas fa-lightbulb"></i>
+                        <h3>Innovation Hub</h3>
+                        <p>Cutting-edge technology showcase</p>
+                    </div>
+                    <div class="tf-card-back">
+                        <h3>Tech Showcase</h3>
+                        <p>AI/ML exhibitions, robotics competitions, startup pitch events, research paper presentations, and patent displays.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card">
+                <div class="tf-card-inner">
+                    <div class="tf-card-front">
+                        <i class="tf-icon fas fa-users"></i>
+                        <h3>Community Impact</h3>
+                        <p>Inspiring future generations</p>
+                    </div>
+                    <div class="tf-card-back">
+                        <h3>Social Initiative</h3>
+                        <p>Student workshops, rural tech outreach, sustainability projects, and mentorship programs for underprivileged youth.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="tf-section" id="highlights">
+        <h2 class="tf-heading">Festival Highlights</h2>
+        <div class="tf-grid tf-portfolio">
+            <div class="tf-item fade-in">Robowars Arena</div>
+            <div class="tf-item fade-in">TechX Hackathon</div>
+            <div class="tf-item fade-in">Laser & Drone Show</div>
+            <div class="tf-item fade-in">Workshops & Seminars</div>
+            <div class="tf-item fade-in">Space Technology Expo</div>
+            <div class="tf-item fade-in">AI Innovation Summit</div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section class="tf-section" id="join">
+        <div class="tf-section-content">
+            <h2 class="tf-heading">Join the Revolution</h2>
+            <p>Have questions or want to participate in Techfest? Reach out and we'll connect you with the experience of a lifetime!</p>
+            <form class="tf-form">
+                <div class="tf-form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="tf-form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="tf-form-group">
+                    <textarea placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="tf-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="tf-footer">
+        <p>THANK YOU IIT BOMBAY FOR VISITING MY WEBSITE</p>
+    </footer>
+
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // GSAP Animations
+        // Hero section animations
+        gsap.timeline()
+            .from('.tf-title', { 
+                duration: 1.2, 
+                y: 100, 
+                opacity: 0, 
+                ease: 'power3.out' 
+            })
+            .from('.tf-subtitle', { 
+                duration: 1, 
+                y: 50, 
+                opacity: 0, 
+                ease: 'power2.out' 
+            }, '-=0.5')
+            .from('.tf-hero .tf-btn', { 
+                duration: 0.8, 
+                y: 30, 
+                opacity: 0, 
+                ease: 'back.out(1.7)' 
+            }, '-=0.3');
+
+        // Navbar animation
+        gsap.from('.tf-navbar', {
+            duration: 1,
+            y: -100,
+            opacity: 0,
+            ease: 'power2.out'
+        });
+
+        // Section headings animation
+        gsap.utils.toArray('.tf-heading').forEach(heading => {
+            gsap.from(heading, {
+                duration: 1,
+                y: 50,
+                opacity: 0,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: heading,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+        });
+// Event Categories Animation
+gsap.from(".event-categories", {
+  y: -100,
+  opacity: 0,
+  duration: 1,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".event-categories",
+    start: "top 80%",
+  },
+});
+
+// Festival Highlights Animation
+gsap.from(".festival-highlights", {
+  y: -100,
+  opacity: 0,
+  duration: 1,
+  ease: "power3.out",
+  scrollTrigger: {
+    trigger: ".festival-highlights",
+    start: "top 80%",
+  },
+});
+
+// Register ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
+// Animate the Event Cards
+gsap.utils.toArray(".fade-in").forEach((card, i) => {
+  gsap.from(card, {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    delay: i * 0.2,
+    scrollTrigger: {
+      trigger: card,
+      start: "top 85%",
+      toggleActions: "play none none none"
+    }
+  });
+});
+
+
+
+ 
+
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    
+  });
+</script>
