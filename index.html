@@ -531,20 +531,22 @@
     .tf-navbar {
       padding: 1rem 4%;
     }
-    
+    .tf-logo {
+      font-size: 1.3rem;
+    }
+    .tf-hamburger {
+      font-size: 1rem; /* Make hamburger even smaller */
+    }
     .tf-section {
       padding: 3rem 3%;
     }
-    
     .tf-card {
       padding: 2rem 1.5rem;
     }
-    
     .tf-btn {
       padding: 1rem 2rem;
       font-size: 0.9rem;
     }
-    
     .tf-form {
       padding: 1.5rem;
     }
@@ -934,6 +936,12 @@ gsap.utils.toArray(".fade-in").forEach((card, i) => {
 
   hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active');
-    
+  });
+
+  // Close menu on nav link click (for mobile)
+  document.querySelectorAll('#nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('active');
+    });
   });
 </script>
